@@ -1,6 +1,6 @@
-Snowflaked
-==========
-Source URL: http://github.com/dwayn/snowflaked
+Snowflake
+=========
+This is a Fork of: http://github.com/dwayn/snowflaked
 
 # Introduction
 This is a C implementation of Twitter's snowflake algorithm as a standalone daemon and client 
@@ -113,14 +113,6 @@ Command line client for generating load on snowflaked daemon
 #### PHP
 There is an extension for PHP in `clients/php` that can be compiled. See [clients/php/README.md](clients/php/README.md)
 
-#### Python
-_Coming soon_
-
-#### Others client libraries
-Node.js, Ruby, Java, Scala, etc: I plan to chip away at writing clients for many other languages, but
-if anyone would like to help with writing more client libraries, let me know and I would be happy to help out
-
-
 # Building
 
 ## Dependencies
@@ -164,42 +156,40 @@ _you can leave out gperftools if you are not planning on compiling the debug ver
 
 
 
-
-
 # Protocol
 The daemon implements a simple text protocol:
 
 
 #### Get ID request:
 
-        GET\r\n
+        GET
 
 ##### Server ID response: 
 64bit integer preceeded by "+"
 
-        +70955254678034981\r\n
+        +70955254678034981
         
 ##### Server error response:
 If there is an error, the response will be preceeded by "-"
 
-        -ERROR error message\r\n
+        -ERROR error message
 
 #### Get server stats:
 
-        INFO\r\n
+        INFO
 
 ##### Server info response
 The following is actually a contiguous string, but it is broken up into multiple lines for 
 the sake of readability.
 
-        +uptime:16761\r
-        version:00.02.00\r
-        region:0\r
-        worker:39\r
-        seq_cap:255\r
-        seq_max:84\r
-        ids:334241\r
-        waits:0\r\n
+        +uptime:16761
+        version:00.02.00
+        region:0
+        worker:39
+        seq_cap:255
+        seq_max:84
+        ids:334241
+        waits:0
 
 * uptime - Seconds since server started
 * version - Compiled version of the server
@@ -210,11 +200,3 @@ the sake of readability.
 * ids - The number of IDs that the server has generated since it was started
 * waits - The number of times the server has had to enter a wait loop to generate an ID
  * This can be caused by hitting the sequence number cap or by waiting due to an NTP clock adjustment that rolled time backwards on the host
-
-
-
-
-
-
-### TODO
-* Tests for snowflaked components
